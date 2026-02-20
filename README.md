@@ -1,3 +1,4 @@
+**PROJECT ONGOING**
 # 🚀 Echo – Team Development Guide
 
 This repository follows a **branch-based team workflow**.  
