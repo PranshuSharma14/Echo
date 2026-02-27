@@ -1,15 +1,23 @@
-# 🚀 Echo – Team Development Guide
+# 🚀 Echo – Team Development & Branching Guide
 
-This repository follows a **branch-based team workflow**.  
-Please read this README carefully before starting work.
+This repository follows a **feature-based team workflow** designed for  
+**parallel development, minimal conflicts, and clean integration**.
+
+⚠️ READ THIS COMPLETELY BEFORE STARTING ANY WORK.
 
 ---
 
-## 👥 Team Members
+## 👥 Team Members & Roles
 
-- **Pranshu Sharma** – Maintainer / Lead (Final merge authority)
-- **Suryansh** – Team Member
-- **Arushi** – Team Member
+- **Pranshu Sharma** – Maintainer / Lead  
+  - Final decision authority  
+  - Reviews all Pull Requests  
+  - Merges `dev → main`
+
+- **Suryansh** – Developer  
+- **Arushi** – Developer  
+
+👑 Only **Pranshu** can merge into `dev` and `main`
 
 ---
 
@@ -17,112 +25,135 @@ Please read this README carefully before starting work.
 
 We use **3 types of branches**:
 
-### 1️⃣ `main` (🔒 Protected)
-- Final & stable code
+---
+
+### 1️⃣ `main` — 🔒 Production / Final Branch
+- Always **stable**
+- Used for:
+  - Final submission
+  - Demo-ready code
+  - Releases
 - ❌ No direct push allowed
 - ✅ Only merged from `dev`
-- 👤 **Only Pranshu merges to `main`**
+- 👤 Only Pranshu merges here
 
 ---
 
-### 2️⃣ `dev` (Integration Branch)
-- Combined work of all team members
+### 2️⃣ `dev` — Integration Branch
+- Active development branch
+- All completed features come here
+- Can be slightly unstable (allowed)
 - ❌ No direct push allowed
-- ✅ All feature branches are merged here via Pull Request
+- ✅ Only merged via Pull Requests from `feature/*`
 
 ---
 
-### 3️⃣ `feature/*` (Individual Work Branches)
+### 3️⃣ `feature/*` — Feature Branches (MOST IMPORTANT)
 
-Each team member works on their **own feature branch**:
+Each feature MUST have its own branch.
 
-- `feature/pranshu` → Pranshu
-- `feature/suryansh` → Suryansh
-- `feature/arushi` → Arushi
+Branches are **feature-based**, NOT person-based.
 
-✅ Work ONLY on your assigned feature branch  
-❌ Never work directly on `main` or `dev`
+✅ Correct examples:
+- feature/chat-ui
+- feature/dashboard-layout
+- feature/ai-escalation
+- feature/knowledge-upload
+- feature/voice-agent
+
+❌ Incorrect examples:
+- feature/pranshu
+- feature/suryansh
+- feature/arushi
+
+RULE:
+One branch = One feature = One Pull Request
 
 ---
 
-## 🔁 Workflow (Step-by-Step)
+## 🔁 Overall Workflow
 
-### 🟢 1. Clone the repository (First time only)
+feature/*  →  dev  →  main
 
-```bash
-git clone https://github.com/PranshuSharma14/Echo.git
+- Features are merged early into `dev`
+- Releases are merged late into `main`
+
+---
+
+## 🟢 1. Clone the Repository (First Time Only)
+
+git clone https://github.com/PranshuSharma14/Echo.git  
 cd Echo
+
 ---
 
-## 🧩 3. Create Your Feature Branch (Only Once)
+## 🧩 2. Start Any New Work (MANDATORY)
 
-⚠️ Make sure you are on `dev` branch before creating your feature branch.
+Always start from the latest `dev` branch.
 
-```bash
-git checkout dev
+git checkout dev  
 git pull origin dev
-```
 
-### For Suryansh
-```bash
-git checkout -b feature/suryansh
-```
+---
 
-### For Arushi
-```bash
-git checkout -b feature/arushi
-```
+## 🧩 3. Create a Feature Branch
 
-### For Pranshu
-```bash
-git checkout -b feature/pranshu
-```
+Create a branch ONLY for the feature you are working on.
+
+git checkout -b feature/feature-name
+
+Example:
+
+git checkout -b feature/chat-ui
 
 ---
 
 ## 🛠 4. Work on Your Feature Branch
 
-- Write code **only** in your own feature branch
-- Do NOT touch `main` or `dev`
-- Make small, meaningful commits
+- Work ONLY on your feature branch  
+- Do NOT touch `dev` or `main`  
+- Do NOT mix multiple features in one branch  
+- Make small, meaningful commits  
 
-```bash
-git add .
-git commit -m "feat: describe your change"
-git push origin feature/your-name
-```
+git add .  
+git commit -m "feat: add chat message bubble UI"  
+git push origin feature/feature-name
 
 ---
 
 ## 🔁 5. Create Pull Request (MANDATORY)
 
-After completing your task:
+When your feature is **logically complete**:
 
-1. Open the GitHub repository
-2. Go to **Pull Requests**
-3. Click **New Pull Request**
-4. **From:** `feature/your-name`
-5. **To:** `dev`
-6. Write a short description of your work
-7. Click **Create Pull Request**
+1. Go to GitHub → Pull Requests  
+2. Click **New Pull Request**  
+3. From: feature/feature-name  
+4. To: dev  
+5. Clearly explain:
+   - What you built
+   - What files changed  
+6. Create PR  
 
-👤 Only **Pranshu** will review and merge Pull Requests.
+Only **Pranshu** will review and merge PRs.
 
 ---
 
-## 🔄 6. Sync Your Branch if `dev` Gets Updated
+## 🔄 6. If Someone Else Merged to `dev` While You Were Working
 
-If someone else's code is merged into `dev` while you are working:
+This is NORMAL in team work.
 
-```bash
-git checkout dev
-git pull origin dev
-git checkout feature/your-name
-git merge dev
-```
+Before your PR is merged, update your branch:
 
-- Resolve merge conflicts if any
-- Then continue working normally
+git fetch origin  
+git merge origin/dev
+
+If conflicts appear:
+- Resolve conflicts carefully
+- Test the app
+- Commit the fix
+- Push again
+
+The PR will auto-update.
 
 ---
 
@@ -130,49 +161,54 @@ git merge dev
 
 - ❌ Do NOT push directly to `main`
 - ❌ Do NOT push directly to `dev`
-- ❌ Do NOT work on someone else's branch
-- ❌ Do NOT merge your own Pull Request
-- ❌ Do NOT start work without pulling latest `dev`
+- ❌ Do NOT create person-based branches
+- ❌ Do NOT mix multiple features in one branch
+- ❌ Do NOT merge your own PR
+- ❌ Do NOT work without pulling latest `dev`
 
 ---
 
 ## ✅ Allowed & Expected
 
-- ✅ Work only on your feature branch
-- ✅ Push regularly with clean commits
-- ✅ Create Pull Requests to `dev`
-- ✅ Ask before making major changes
+- ✅ Feature-based branches only
+- ✅ Frequent clean commits
+- ✅ Early PRs to `dev`
+- ✅ Ask before major changes
 
 ---
 
-## 🧠 Workflow Summary
+## 🧠 Workflow Summary (REMEMBER THIS)
 
-```text
-main   ← final & protected
-  ↑
-dev    ← integration branch
-  ↑
-feature/* ← individual work
-```
+main   ← final & stable  
+  ↑  
+dev    ← integration branch  
+  ↑  
+feature/* ← one feature only  
 
 ---
 
 ## 👑 Maintainer Responsibilities (Pranshu)
 
 - Review all Pull Requests
+- Ensure feature completeness
 - Resolve merge conflicts
-- Merge `feature/* → dev`
-- Merge `dev → main`
-- Maintain project stability
+- Merge feature/* → dev
+- Merge dev → main
+- Maintain overall project stability
 
 ---
 
 ## 🆘 Help & Communication
 
-If you are confused at **ANY** step:
+If you are confused at ANY step:
 
-👉 STOP and ask **Pranshu** before pushing anything.
+STOP and ask **Pranshu** before pushing anything.
 
-Better to ask than to break the project 🙂
+Better to ask than to break the repository.
 
 ---
+
+## ⭐ GOLDEN RULE
+
+Merge features, not people.  
+Integrate early, release late.
