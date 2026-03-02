@@ -8,13 +8,193 @@ via Pull Requests.
 
 ---
 
+## 📋 Phase 1 Progress (Pranshu Sharma) – ✅ COMPLETED
+
+**Status:** Phase 1 work is **100% complete** and pushed to `feature/pranshu` branch
+
+### ✅ How Other Team Members Can Get This Code:
+
+```bash
+# Switch to Pranshu's completed branch
+git checkout feature/pranshu
+git pull origin feature/pranshu
+
+# Install dependencies
+pnpm install
+
+# Run the development server
+pnpm turbo dev
+```
+
+This will start all apps and services together.
+
+### ✅ Completed Features:
+
+#### Backend Infrastructure:
+- ✅ Convex setup with authentication config
+- ✅ Database schema for users, contactSessions, and conversations
+- ✅ Contact session creation and validation mutations
+- ✅ Organization validation with Clerk integration
+
+#### UI Components Library:
+- ✅ Form component with full react-hook-form integration
+- ✅ Sidebar component with responsive design and collapse functionality
+- ✅ Button component with multiple variants (default, outline, ghost, destructive, link)
+- ✅ Shape UI components (input, checkbox, dialog, dropdown-menu, etc.)
+
+#### Widget App:
+- ✅ Auth screen with email/name form submission
+- ✅ Loading screen with organization and session validation
+- ✅ Chat screen with conversation display
+- ✅ Selection screen layout
+- ✅ Widget atoms (state management) with Jotai
+- ✅ Widget view with screen routing
+- ✅ Responsive widget header component
+
+#### Web Dashboard:
+- ✅ Dashboard sidebar with navigation
+- ✅ Dashboard layout with Clerk auth guards
+- ✅ Organization guard middleware
+- ✅ Multiple sections (Conversations, Knowledge Base, Customization, Integrations, Billing)
+
+### 🔧 Key Fixes Applied:
+- ✅ Fixed missing form component creation
+- ✅ Fixed sidebar component implementation
+- ✅ Fixed button component Slot imports (@radix-ui/react-slot)
+- ✅ Fixed invalid button variants
+- ✅ Fixed API path references (bracket notation for nested paths)
+- ✅ Fixed TypeScript type errors
+- ✅ Installed all missing dependencies (zod, react-hook-form, @hookform/resolvers, jotai, lucide-react)
+
+---
+
+## 🚀 Quick Start (For All Developers)
+
+### Prerequisites:
+- Node.js 18+ 
+- pnpm (package manager)
+- Git
+- Clerk account (for authentication)
+- Convex account (for backend)
+
+### 1️⃣ Clone & Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/PranshuSharma14/Echo.git
+cd Echo
+
+# Install dependencies
+pnpm install
+
+# Setup environment variables
+cp .env.example .env.local
+# Edit .env.local with your Clerk and Convex credentials
+```
+
+### 2️⃣ Environment Variables Setup
+
+**Required .env files at 3 locations:**
+
+#### `packages/backend/.env.local`
+```env
+CLERK_SECRET_KEY=your_clerk_secret_key
+CLERK_JWT_ISSUER_DOMAIN=your_clerk_issuer_domain
+```
+
+#### `apps/web/.env.local`
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+NEXT_PUBLIC_CONVEX_URL=your_convex_url
+```
+
+#### `apps/widget/.env.local`
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+NEXT_PUBLIC_CONVEX_URL=your_convex_url
+```
+
+⚠️ **Note:** `.env.local` files are in `.gitignore` - Each developer creates their own copy
+
+### 3️⃣ Start All Services (Recommended)
+
+**Start everything at once with Turborepo:**
+
+```bash
+pnpm turbo dev
+```
+
+This will start:
+- ✅ Convex backend (packages/backend)
+- ✅ Web dashboard (http://localhost:3000)
+- ✅ Widget app (http://localhost:3001)
+- ✅ All necessary services
+
+**OR start services individually:**
+
+**OR start services individually:**
+
+```bash
+# Terminal 1 - Convex Backend
+cd packages/backend && pnpm run dev
+
+# Terminal 2 - Web Dashboard  
+pnpm -F web run dev
+# Opens at http://localhost:3000
+
+# Terminal 3 - Widget App
+pnpm -F widget run dev
+# Opens at http://localhost:3001
+```
+
+### 4️⃣ Testing the Widget
+
+Access the widget with an organization ID:
+```
+http://localhost:3001?organizationId=your-org-id
+```
+
+The widget will:
+1. Validate the organization
+2. Create a contact session
+3. Show the auth form
+4. Navigate to chat screen
+
+---
+
+## 📂 Project Structure
+
+```
+Echo/
+├── apps/
+│   ├── web/                 # Dashboard app (Next.js)
+│   │   ├── modules/dashboard/
+│   │   ├── app/(auth)/
+│   │   └── app/(dashboard)/
+│   └── widget/              # Widget app (Next.js)
+│       ├── modules/widget/
+│       ├── atoms/          # Jotai state management
+│       └── app/
+├── packages/
+│   ├── backend/            # Convex backend
+│   │   └── convex/
+│   ├── ui/                 # Shared UI components library
+│   │   └── src/components/
+│   ├── typescript-config/
+│   └── eslint-config/
+└── README.md
+```
+
+---
+
 ## 👥 Team Members & Work Distribution
 
 Total tutorial duration: **22 hours**
 
 Work is divided equally:
 
-- **Pranshu Sharma** – Phase 1 (Initial 7 hours) ✅ COMPLETED  
+- **Pranshu Sharma** – Phase 1 (Initial 7 hours) ✅ IN PROGRESS
 - **Arushi** – Phase 2 (Next ~7 hours)  
 - **Suryansh** – Phase 3 (Remaining ~7 hours)
 
@@ -143,6 +323,86 @@ git merge origin/dev
 - ❌ Do NOT work on someone else’s branch
 - ❌ Do NOT merge your own PR
 - ❌ Do NOT submit half-complete work
+
+---
+
+## 🧪 Building the Project
+
+Build all packages:
+```bash
+pnpm run build
+```
+
+Build specific app:
+```bash
+pnpm -F widget run build    # Build widget
+pnpm -F web run build       # Build web
+```
+
+---
+
+## 📚 Useful Commands
+
+```bash
+# List all available scripts
+pnpm --help
+
+# Run command in specific workspace
+pnpm -F package-name run script-name
+
+# Clean all dependencies
+pnpm clean
+
+# Update all dependencies
+pnpm update
+
+# Run linting
+pnpm run lint
+```
+
+---
+
+## 🐛 Common Issues & Solutions
+
+### Issue: "organizationId is required"
+**Solution:** Pass organization ID in URL query parameter:
+```
+http://localhost:3001?organizationId=your-org-id
+```
+
+### Issue: Convex API errors
+**Solution:** Ensure Convex dev server is running:
+```bash
+cd packages/backend && pnpm run dev
+```
+
+### Issue: Module not found errors
+**Solution:** Reinstall dependencies:
+```bash
+pnpm install
+pnpm run build
+```
+
+### Issue: Port already in use
+**Solution:** Kill the process or use different ports:
+```bash
+# Web app on different port
+pnpm -F web run dev -- -p 3002
+
+# Widget on different port
+pnpm -F widget run dev -- -p 3003
+```
+
+---
+
+## 📖 Documentation
+
+- [Convex Documentation](https://docs.convex.dev)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS](https://tailwindcss.com)
+- [React Hook Form](https://react-hook-form.com)
+- [Jotai (State Management)](https://jotai.org)
+- [Clerk Authentication](https://clerk.com/docs)
 
 ---
 
