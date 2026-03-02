@@ -1,82 +1,65 @@
-# 🚀 Echo – Team Development & Branching Guide
+# 🚀 Echo – Team Development Guide (Phase-based Workflow)
 
-This repository follows a **feature-based team workflow** designed for  
-**parallel development, minimal conflicts, and clean integration**.
+This repository follows a **phase-based team workflow** where each team member
+works on a **dedicated branch for their assigned part**, and integration is done
+via Pull Requests.
 
 ⚠️ READ THIS COMPLETELY BEFORE STARTING ANY WORK.
 
 ---
 
-## 👥 Team Members & Roles
+## 👥 Team Members & Work Distribution
 
-- **Pranshu Sharma** – Maintainer / Lead  
-  - Final decision authority  
-  - Reviews all Pull Requests  
-  - Merges `dev → main`
+Total tutorial duration: **22 hours**
 
-- **Suryansh** – Developer  
-- **Arushi** – Developer  
+Work is divided equally:
 
-👑 Only **Pranshu** can merge into `dev` and `main`
+- **Pranshu Sharma** – Phase 1 (Initial 7 hours) ✅ COMPLETED  
+- **Arushi** – Phase 2 (Next ~7 hours)  
+- **Suryansh** – Phase 3 (Remaining ~7 hours)
 
----
-
-## 🌿 Branch Structure (VERY IMPORTANT)
-
-We use **3 types of branches**:
+Each member is responsible for **completing their entire assigned part**
+before pushing to GitHub.
 
 ---
 
-### 1️⃣ `main` — 🔒 Production / Final Branch
-- Always **stable**
-- Used for:
-  - Final submission
-  - Demo-ready code
-  - Releases
-- ❌ No direct push allowed
+## 🌿 Branch Structure (CURRENT PHASE)
+
+We use **person-based branches for this phase only**.
+
+### Branches in use:
+
+- `main` → Final & stable (protected)
+- `dev` → Integration branch
+- `feature/pranshu` → Pranshu’s complete work (Phase 1)
+- `feature/suryansh` → Suryansh’s complete work (Phase 2)
+- `feature/arushi` → Arushi’s complete work (Phase 3)
+
+⚠️ Feature-wise branching is **NOT required in this phase**.
+
+---
+
+## 🔒 Branch Rules
+
+### `main`
+- Final submission branch
+- ❌ No direct push
 - ✅ Only merged from `dev`
-- 👤 Only Pranshu merges here
+- 👑 Only Pranshu merges here
+
+### `dev`
+- Integration branch
+- ❌ No direct push
+- ✅ Receives PRs from `feature/*`
+
+### `feature/*`
+- Each member works **only on their own branch**
+- Entire assigned part is pushed together
 
 ---
 
-### 2️⃣ `dev` — Integration Branch
-- Active development branch
-- All completed features come here
-- Can be slightly unstable (allowed)
-- ❌ No direct push allowed
-- ✅ Only merged via Pull Requests from `feature/*`
+## 🔁 High-Level Workflow
 
----
-
-### 3️⃣ `feature/*` — Feature Branches (MOST IMPORTANT)
-
-Each feature MUST have its own branch.
-
-Branches are **feature-based**, NOT person-based.
-
-✅ Correct examples:
-- feature/chat-ui
-- feature/dashboard-layout
-- feature/ai-escalation
-- feature/knowledge-upload
-- feature/voice-agent
-
-❌ Incorrect examples:
-- feature/pranshu
-- feature/suryansh
-- feature/arushi
-
-RULE:
-One branch = One feature = One Pull Request
-
----
-
-## 🔁 Overall Workflow
-
-feature/*  →  dev  →  main
-
-- Features are merged early into `dev`
-- Releases are merged late into `main`
 
 ---
 
@@ -87,73 +70,69 @@ cd Echo
 
 ---
 
-## 🧩 2. Start Any New Work (MANDATORY)
+## 🧩 2. Start Your Assigned Work
 
-Always start from the latest `dev` branch.
+Always create your branch from the latest `dev`.
 
 git checkout dev  
-git pull origin dev
+git pull origin dev  
+
+### Create your personal branch
+
+For Pranshu:
+git checkout -b feature/pranshu
+
+For Suryansh:
+git checkout -b feature/suryansh
+
+For Arushi:
+git checkout -b feature/arushi
 
 ---
 
-## 🧩 3. Create a Feature Branch
+## 🛠 3. Work on Your Branch
 
-Create a branch ONLY for the feature you are working on.
-
-git checkout -b feature/feature-name
+- Work **only** on your assigned branch  
+- Complete your **entire part (≈7 hours content)**  
+- You may create multiple commits  
+- Do NOT merge partial or unfinished work  
 
 Example:
 
-git checkout -b feature/chat-ui
-
----
-
-## 🛠 4. Work on Your Feature Branch
-
-- Work ONLY on your feature branch  
-- Do NOT touch `dev` or `main`  
-- Do NOT mix multiple features in one branch  
-- Make small, meaningful commits  
-
 git add .  
-git commit -m "feat: add chat message bubble UI"  
-git push origin feature/feature-name
+git commit -m "phase: complete initial setup and core architecture"  
+git push origin feature/your-name
 
 ---
 
-## 🔁 5. Create Pull Request (MANDATORY)
+## 🔁 4. Create Pull Request (MANDATORY)
 
-When your feature is **logically complete**:
+After completing **your entire assigned part**:
 
 1. Go to GitHub → Pull Requests  
 2. Click **New Pull Request**  
-3. From: feature/feature-name  
-4. To: dev  
-5. Clearly explain:
-   - What you built
-   - What files changed  
-6. Create PR  
+3. From: `feature/your-name`  
+4. To: `dev`  
+5. Clearly mention:
+   - Which phase you completed
+   - What major changes were made
+6. Create PR
 
-Only **Pranshu** will review and merge PRs.
+👑 Only **Pranshu** will review and merge PRs.
 
 ---
 
-## 🔄 6. If Someone Else Merged to `dev` While You Were Working
+## 🔄 5. If `dev` Gets Updated While You Are Working
 
-This is NORMAL in team work.
-
-Before your PR is merged, update your branch:
+Before final push or PR:
 
 git fetch origin  
-git merge origin/dev
+git merge origin/dev  
 
-If conflicts appear:
-- Resolve conflicts carefully
-- Test the app
+- Resolve conflicts if any
+- Test the project
 - Commit the fix
 - Push again
-
-The PR will auto-update.
 
 ---
 
@@ -161,40 +140,28 @@ The PR will auto-update.
 
 - ❌ Do NOT push directly to `main`
 - ❌ Do NOT push directly to `dev`
-- ❌ Do NOT create person-based branches
-- ❌ Do NOT mix multiple features in one branch
+- ❌ Do NOT work on someone else’s branch
 - ❌ Do NOT merge your own PR
-- ❌ Do NOT work without pulling latest `dev`
+- ❌ Do NOT submit half-complete work
 
 ---
 
-## ✅ Allowed & Expected
+## ✅ What Is Expected
 
-- ✅ Feature-based branches only
-- ✅ Frequent clean commits
-- ✅ Early PRs to `dev`
-- ✅ Ask before major changes
-
----
-
-## 🧠 Workflow Summary (REMEMBER THIS)
-
-main   ← final & stable  
-  ↑  
-dev    ← integration branch  
-  ↑  
-feature/* ← one feature only  
+- ✅ One branch per person (for this phase)
+- ✅ Entire assigned part completed before PR
+- ✅ Clear commit messages
+- ✅ Communication before major changes
 
 ---
 
 ## 👑 Maintainer Responsibilities (Pranshu)
 
-- Review all Pull Requests
-- Ensure feature completeness
+- Review phase-wise Pull Requests
 - Resolve merge conflicts
-- Merge feature/* → dev
-- Merge dev → main
-- Maintain overall project stability
+- Merge `feature/* → dev`
+- Merge `dev → main`
+- Ensure project stability
 
 ---
 
@@ -204,11 +171,21 @@ If you are confused at ANY step:
 
 STOP and ask **Pranshu** before pushing anything.
 
-Better to ask than to break the repository.
+Better to ask than to break the project.
 
 ---
 
-## ⭐ GOLDEN RULE
+## ⭐ IMPORTANT NOTE
 
-Merge features, not people.  
-Integrate early, release late.
+This **person-based branching** is used **only for the current phase**  
+due to large, well-separated work chunks.
+
+Future development may switch to **feature-based branching**.
+
+---
+
+## 🏁 GOLDEN RULE
+
+Complete your assigned part fully.  
+Then push once.  
+Then create PR.
