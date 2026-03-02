@@ -1,0 +1,22 @@
+{
+    "name": "@workspace/backend",
+    "type": "module",
+    "scripts": {
+        "dev": "convex dev",
+        "setup": "convex dev --until-success"
+    },
+    "exports": {
+        "./convex": "./convex/*.ts"
+    },
+    "devDependencies": {
+        "@types/node": "^25.1.0",
+        "@workspace/typescript-config": "workspace:*",
+        "typescript": "latest"
+    },
+    "dependencies": {
+        "@clerk/backend": "^2.33.0",
+        "convex": "^1.32.0",
+        "react": "18.3.1",
+        "react-dom": "18.3.1"
+    }
+}

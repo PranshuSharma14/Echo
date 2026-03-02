@@ -1,15 +1,22 @@
-import { Button } from "@workspace/ui/components/button"
+"use Client";
 
-export default function Page() {
-  return (
-    <div className="flex items-center justify-center min-h-svh">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold">Hello apps/widget</h1>
-        <div className="flex gap-2">
-          <Button>Button</Button>
-          <Button variant="outline">Outline</Button>
-        </div>
-      </div>
-    </div>
+import { WidgetView } from "@/modules/widget/ui/views/widget-view";
+import { use } from "react";
+
+interface Props{
+  searchParams: Promise<{
+    organizationId : string;
+  }>
+}
+
+const  Page = ({searchParams} : Props)=> {
+
+  const {organizationId} = use(searchParams);
+  return(
+    <WidgetView organizationId={organizationId} />  
   )
 }
+
+
+export default Page;
+
