@@ -1,12 +1,17 @@
 import Vapi from "@vapi-ai/web";
-import { useState, useEffect } from "react";
+import { useAtomValue } from "jotai";
+import { useEffect, useState } from "react";
+import { vapiSecretsAtom, widgetSettingsAtom } from "../atoms/widget-atoms";
 
 interface TranscriptMessage {
   role: "user" | "assistant";
   text: string;
-}
+};
 
 export const useVapi = () => {
+  const vapiSecrets = useAtomValue(vapiSecretsAtom);
+  const widgetSettings = useAtomValue(widgetSettingsAtom);
+
   const [vapi, setVapi] = useState<Vapi | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
@@ -14,10 +19,11 @@ export const useVapi = () => {
   const [transcript, setTranscript] = useState<TranscriptMessage[]>([]);
 
   useEffect(() => {
-    const vapiInstance = new Vapi(
-      "b9c8c6fc-4fb6-4043-b159-7d4ae4e62cf5"
-    );
+    if (!vapiSecrets) {
+      return;
+    }
 
+    const vapiInstance = new Vapi(vapiSecrets.publicApiKey);
     setVapi(vapiInstance);
 
     vapiInstance.on("call-start", () => {
@@ -41,51 +47,50 @@ export const useVapi = () => {
     });
 
     vapiInstance.on("error", (error) => {
-      console.error("VAPI_ERROR", error);
+      console.log(error, "VAPI_ERROR");
       setIsConnecting(false);
     });
 
-    vapiInstance.on("message", (message: any) => {
-      if (
-        message.type === "transcript" &&
-        message.transcriptType === "final"
-      ) {
+    vapiInstance.on("message", (message) => {
+      if (message.type === "transcript" && message.transcriptType === "final") {
         setTranscript((prev) => [
           ...prev,
           {
             role: message.role === "user" ? "user" : "assistant",
             text: message.transcript,
-          },
+          }
         ]);
       }
     });
 
     return () => {
-      vapiInstance.stop();
-    };
-  }, [])
+      vapiInstance?.stop();
+    }
+  }, []);
 
-  const startCall = () =>{
+  const startCall = () => {
+    if (!vapiSecrets || !widgetSettings?.vapiSettings?.assistantId) {
+      return;
+    }
     setIsConnecting(true);
 
-    if(vapi){
-        vapi.start("");
+    if (vapi) {
+      vapi.start(widgetSettings.vapiSettings.assistantId);
     }
   }
 
-  const endCall = ()=>{
-    if(vapi){
-        vapi.stop();
+  const endCall = () => {
+    if (vapi) {
+      vapi.stop();
     }
-  }
+  };
 
-  return{
-    isConnected,
-    isConnecting,
+  return {
     isSpeaking,
+    isConnecting,
+    isConnected,
     transcript,
     startCall,
     endCall,
-  };
-
+  }
 };
