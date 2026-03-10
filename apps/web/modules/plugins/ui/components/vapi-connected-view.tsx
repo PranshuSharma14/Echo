@@ -17,7 +17,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@workspace/ui/components/tabs";
-import { VapiPhoneNumbersTab } from "./vapi-phone-numbers-tab";
+import { VapiPhoneNumbersTab } from "./vapi-phone-numbers";
 import { VapiAssistantsTab } from "./vapi-assistants-tab";
 
 interface VapiConnectedViewProps {
