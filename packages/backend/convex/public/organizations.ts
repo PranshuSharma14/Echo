@@ -11,14 +11,18 @@ export const validate = action({
     organizationId: v.string(),
   },
   handler: async (_, args) => {
-    const organization = await clerkClient.organizations.getOrganization({
-      organizationId: args.organizationId,
-    });
-    
-    if (organization) {
-    return { valid: true }
-    } else {
-      return { valid: false, reason: "Organization not valid" };
+    try {
+      const organization = await clerkClient.organizations.getOrganization({
+        organizationId: args.organizationId,
+      });
+
+      if (organization) {
+        return { valid: true };
+      } else {
+        return { valid: false, reason: "Organization not valid" };
+      }
+    } catch {
+      return { valid: false, reason: "Organization not found" };
     }
   },
 });
